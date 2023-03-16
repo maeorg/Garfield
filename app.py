@@ -1,18 +1,26 @@
 from flask import Flask, render_template, request
 import random
+import sqlite3
+
 
 app = Flask(__name__)
-app.run(debug=True)
+# export FLASK_DEBUG=1
 
 
 @app.route("/", methods=["GET", "POST"])
 def index():
     if request.method == "GET":
-        return render_template("index.html")
+        db = sqlite3.connect("database.db")
+        reviews = db.execute("SELECT * FROM reviews")
+        print(reviews)
+        return render_template("index.html", reviews=reviews)
     if request.method == "POST":
-        print("Form submitted!")
-        color = request.form.get("color")
-        return render_template("game.html", color=color)
+        #if not request.form.get("name"):
+
+        #name = request.form.get("name")
+        
+        #review = request.form.get("review")
+        return render_template("index.html")
 
 
 @app.route("/game", methods=["GET", "POST"])

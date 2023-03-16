@@ -2,5 +2,38 @@
 
 {% block body %}
     
-    <a href="/game">Game</href>
+    <a href="/game">Go play the game</href></a>
+    
+    <h2>Reviews:</h2>
+    {% for review in reviews %}
+        Name: {{reviews.name}}
+        Review: {{reviews.review}}
+        Time" {{reviews.timestamp}}
+    {% endfor %}
+
+    <h3>Add review:</h3>
+    <form action="/" method="post" name="review" onsubmit="return ifEmpty()">
+        <div>
+            <input autocomplete="off" autofocus class="form-control mx-auto w-auto" id="name" name="name" placeholder="Name" type="text">
+        </div>
+        <div>
+            <input class="form-control mx-auto w-auto" id="review" name="review" placeholder="Review" type="text" size="100">
+        </div>
+        <button class="btn btn-primary" type="submit">Add review</button>
+    </form>
+    
+    <script>
+        function ifEmpty() {
+            var name = document.forms["review"]["name"].value;
+            var review = document.forms["review"]["review"].value;
+            if (name == null || name == "") {
+                alert("Please insert name.");
+                return false;
+            }
+            if (review == null || review == "") {
+                alert("Please insert review.");
+                return false;
+            }
+        }
+    </script>
 {% endblock %}
