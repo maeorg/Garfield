@@ -25,8 +25,10 @@ def index():
     if request.method == "GET":
         connect = connect_database(database)
         with connect:
+            reviews = {}
             reviews = connect.execute("SELECT * FROM reviews")
             reviews = reviews.fetchall()
+            print(reviews)
         return render_template("index.html", reviews=reviews)
     if request.method == "POST":
         name = request.form.get("name")

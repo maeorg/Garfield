@@ -5,11 +5,12 @@
     <a href="/game">Go play the game</href></a>
     
     <h2>Reviews:</h2>
-    {% for review in reviews %}
-        <br>    
-        Name: {{ review[1] }}
-        Review: {{ review[2] }}
-        Time: {{ review[3] }}
+
+    {% for review in reviews %}  
+        Name: {{ review[1] }} <br> 
+        Review: {{ review[2] }} <br> 
+        Time: {{ review[3] }} <br> 
+        <br>
     {% endfor %}
 
     <h3>Add review:</h3>
