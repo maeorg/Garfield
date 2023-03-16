@@ -4,19 +4,15 @@
     
     <a href="/game">Go play the game</href></a>
     
-    <h2>Reviews:</h2>
-
-    {% for review in reviews %}  
-        Name: {{ review[1] }} <br> 
-        Review: {{ review[2] }} <br> 
-        Time: {{ review[3] }} <br> 
-        <br>
-    {% endfor %}
+    <h2>Overall rating: {{ rating_average[0] }}</h2>
 
     <h3>Add review:</h3>
     <form action="/" method="post" name="review" onsubmit="return ifEmpty()">
         <div>
-            <input autocomplete="off" autofocus class="form-control mx-auto w-auto" id="name" name="name" placeholder="Name" type="text">
+            <input autofocus class="form-control mx-auto w-auto" id="rating" name="rating" placeholder="Rating (1 to 5)" type="text">
+        </div>
+        <div>
+            <input autofocus class="form-control mx-auto w-auto" id="name" name="name" placeholder="Name" type="text">
         </div>
         <div>
             <input class="form-control mx-auto w-auto" id="review" name="review" placeholder="Review" type="text" size="100">
@@ -24,12 +20,29 @@
         <button class="btn btn-primary" type="submit">Add review</button>
     </form>
     
+    <h2>All reviews:</h2>
+
+    {% for review in reviews %}  
+        Rating: {{ review[1] }} <br> 
+        Name: {{ review[2] }} <br> 
+        Review: {{ review[3] }} <br> 
+        Time: {{ review[4] }} <br> 
+        <br>
+    {% endfor %}
+
+    
+    
     <script>
         function ifEmpty() {
+            var rating = document.forms["review"]["rating"].value;
             var name = document.forms["review"]["name"].value;
             var review = document.forms["review"]["review"].value;
-            if (name == null || name == "") {
-                alert("Please insert name.");
+            if (rating == null || rating == "" || rating < 1 || rating > 5 || isNaN(rating)) {
+                alert("Rating has to be a number from 1 to 5.");
+                return false;
+            }
+            if (review == null || review == "") {
+                alert("Please insert review.");
                 return false;
             }
             if (review == null || review == "") {

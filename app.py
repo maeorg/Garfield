@@ -25,17 +25,17 @@ def index():
     if request.method == "GET":
         connect = connect_database(database)
         with connect:
-            reviews = {}
-            reviews = connect.execute("SELECT * FROM reviews")
-            reviews = reviews.fetchall()
-            print(reviews)
-        return render_template("index.html", reviews=reviews)
+            reviews = connect.execute("SELECT * FROM reviews").fetchall()
+            rating_average = connect.execute("SELECT ROUND(AVG(rating), 1) FROM reviews").fetchone()
+            print(rating_average)
+        return render_template("index.html", reviews=reviews, rating_average=rating_average)
     if request.method == "POST":
+        rating = request.form.get("rating")
         name = request.form.get("name")
         review = request.form.get("review")
-        together = (name, review)
+        together = (rating, name, review)
         db = connect_database(database)
-        db.execute("INSERT INTO reviews(name, review) VALUES(?, ?)", together)
+        db.execute("INSERT INTO reviews(rating, name, review) VALUES(?, ?, ?)", together)
         db.commit()
         return redirect("/")
 
