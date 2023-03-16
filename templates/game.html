@@ -1,31 +1,35 @@
 {% extends "layout.html" %}
 
 {% block body %}
-<div class="center">
+<div>
     <br>
     <h4 class="center text-center">Feeling lucky? Try to find Garfield.</h4>
     <br>
     <form  action="/game" method="post" class="center text-center" name="new_game">
         <input type="hidden" id="new_game" name="new_game" type="text" value="new_game">
-        <button type="submit">New game</button>
+        <button class="btn btn-primary" type="submit">New game</button>
     </form>    
     <br>
-
-    <form class="center text-center" action="/game" method="post">
-        <table>
+</div>
+<div class="center text-center">
+    <form class="center" action="/game" method="post">
+        <table class="center">
             {% set i = namespace(value=0) %}
             {% for square in field %}
                 {% if i.value < size %}
-                    <td><input id="square" name="square" type="submit" value="{{ square }}"></td>                    
+                    <td><input class="squares" id="square" name="square" type="submit" value="{{ square }}"></td>                    
                     {% set i.value = i.value + 1 %}
                 {% elif i.value == size %}
                     <tr></tr>
-                    <td><input id="square" name="square" type="submit" value="{{ square }}"></td>
+                    <td><input class="squares" id="square" name="square" type="submit" value="{{ square }}"></td>
                     {% set i.value = 1 %}
                 {% endif %}
             {% endfor %}
         </table>
     </form>
+    <br>
     {{ no }}
+    <br>
+    <br>
 </div>
 {% endblock %}
