@@ -8,4 +8,14 @@
         <img src="/static/garfield.jpg" alt="Garfield_the_Cat" style="width:400px;height:200px;">
     </div>
     <br>
+
+    <div class="center">
+        <br>
+        <form  action="/game" method="post" class="center text-center" name="new_game">
+            <input type="hidden" id="new_game" name="new_game" type="text" value="new_game">
+            <button type="submit">New game</button>
+        </form>   
+        <br>
+    </div>
+
 {% endblock %}

@@ -5,7 +5,8 @@
     <br>
     <h4 class="center text-center">Feeling lucky? Try to find Garfield.</h4>
     <br>
-    <form  action="/game" method="get" class="center text-center">
+    <form  action="/game" method="post" class="center text-center" name="new_game">
+        <input type="hidden" id="new_game" name="new_game" type="text" value="new_game">
         <button type="submit">New game</button>
     </form>    
     <br>
@@ -23,31 +24,6 @@
                     {% set i.value = 1 %}
                 {% endif %}
             {% endfor %}
-            <!--
-            <tr>
-                <td><input id="b11" type="submit" name="b11" value="b"/></td>
-                <td><input id="b12" type="submit" name="b12" value="b"/></td>
-                <td><input id="b13" type="submit" name="b13" value="b"/></td>
-                <td><input id="b14" type="submit" name="b14" value="b"/></td>
-            </tr>
-            <tr>
-                <td><input id="b21" type="submit" name="b21" value="b"/></td>
-                <td><input id="b22" type="submit" name="b22" value="b"/></td>
-                <td><input id="b23" type="submit" name="b23" value="b"/></td>
-                <td><input id="b24" type="submit" name="b24" value="b"/></td>
-            </tr>
-            <tr>
-                <td><input id="b31" type="submit" name="b31" value="b"/></td>
-                <td><input id="b32" type="submit" name="b32" value="b"/></td>
-                <td><input id="b33" type="submit" name="b33" value="b"/></td>
-                <td><input id="b34" type="submit" name="b34" value="b"/></td>
-            </tr>
-            <tr>
-                <td><input id="b41" type="submit" name="b41" value="b"/></td>
-                <td><input id="b42" type="submit" name="b42" value="b"/></td>
-                <td><input id="b43" type="submit" name="b43" value="b"/></td>
-                <td><input id="b44" type="submit" name="b44" value="b"/></td>
-            </tr> -->
         </table>
     </form>
     {{ no }}

@@ -60,32 +60,43 @@ def remove():
 
 @app.route("/game", methods=["GET", "POST"])
 def game():
+    global won
+    won = False
+    global size
+    size = 4
+    global spot
+    global field
+    field = []
+    for i in range(size):
+        for j in range(size ):
+            field.append(str(i+1) + str(j+1))
+
     if request.method == "GET":
-        spotX = random.randint(1, 4)
-        spotY = random.randint(1, 4)
-        global spot
+        spotX = random.randint(1, size)
+        spotY = random.randint(1, size)
         spot = str(spotX) + str(spotY)
         print(spot)
-        size = 4
-        field = []
-        for i in range(size):
-            for j in range(size ):
-                field.append(str(i+1) + str(j+1))
         return render_template("game.html", field=field, size=size)
-    if request.method == "POST":
-        square = request.form.get("square")
-        print(square)
-        if square == spot:
 
-        #if request.form.get(spot) == "b":
-            print("Found Garfield!")
-            return render_template("won.html")
-        for i in range(1, 5):
-            for j in range(1, 5):
-                pushed = "b" + str(i) + str(j)
-                if request.form.get(pushed) == "b":
+    if request.method == "POST":
+        print(request.form.get("new_game"))
+        if request.form.get("new_game") == "new_game":
+            spotX = random.randint(1, size)
+            spotY = random.randint(1, size)
+            spot = str(spotX) + str(spotY)
+            print(spot)
+            return render_template("game.html", field=field, size=size)
+
+        while not won:
+                square = request.form.get("square")
+                print(square)
+                if square == spot:
+                    print("Found Garfield!")
+                    won = True
+                    return render_template("won.html")
+                if square != spot:
                     print("wrong")
                     no = "Wrong tile. Try again!"
-                    return render_template("game.html", no=no)
+                    return render_template("game.html", field=field, size=size, no=no)
 
-        return render_template("game.html")
+    return render_template("game.html")
