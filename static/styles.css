@@ -11,12 +11,6 @@ input:hover {
     background-color: orange;
 } 
 
-form {
-    margin: auto;
-    text-align: center;
-    justify-content: center;
-} 
-
 div.center {
     text-align: center;
     justify-content: center;

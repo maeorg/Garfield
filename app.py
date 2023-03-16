@@ -52,7 +52,6 @@ def reviews():
 def remove():
     if request.method == "POST":
         id = request.form.get("remove")
-        print(id)
         connect = connect_database(database)
         connect.execute("DELETE FROM reviews WHERE id=?", [id])
         connect.commit()
@@ -65,13 +64,20 @@ def game():
         spotX = random.randint(1, 4)
         spotY = random.randint(1, 4)
         global spot
-        spot = "b" + str(spotX) + str(spotY)
+        spot = str(spotX) + str(spotY)
         print(spot)
-        return render_template("game.html")
+        size = 4
+        field = []
+        for i in range(size):
+            for j in range(size ):
+                field.append(str(i+1) + str(j+1))
+        return render_template("game.html", field=field, size=size)
     if request.method == "POST":
-        print("Form!")
-        print(spot)
-        if request.form.get(spot) == "b":
+        square = request.form.get("square")
+        print(square)
+        if square == spot:
+
+        #if request.form.get(spot) == "b":
             print("Found Garfield!")
             return render_template("won.html")
         for i in range(1, 5):

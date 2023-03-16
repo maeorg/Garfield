@@ -2,13 +2,28 @@
 
 {% block body %}
 <div class="center">
-    Feeling lucky? Try to find Garfield.
-    <form  action="/game" method="get">
+    <br>
+    <h4 class="center text-center">Feeling lucky? Try to find Garfield.</h4>
+    <br>
+    <form  action="/game" method="get" class="center text-center">
         <button type="submit">New game</button>
     </form>    
+    <br>
 
-    <form style="margin-left : 40vw ;" action="/game" method="post">
+    <form class="center text-center" action="/game" method="post">
         <table>
+            {% set i = namespace(value=0) %}
+            {% for square in field %}
+                {% if i.value < size %}
+                    <td><input id="square" name="square" type="submit" value="{{ square }}"></td>                    
+                    {% set i.value = i.value + 1 %}
+                {% elif i.value == size %}
+                    <tr></tr>
+                    <td><input id="square" name="square" type="submit" value="{{ square }}"></td>
+                    {% set i.value = 1 %}
+                {% endif %}
+            {% endfor %}
+            <!--
             <tr>
                 <td><input id="b11" type="submit" name="b11" value="b"/></td>
                 <td><input id="b12" type="submit" name="b12" value="b"/></td>
@@ -32,7 +47,7 @@
                 <td><input id="b42" type="submit" name="b42" value="b"/></td>
                 <td><input id="b43" type="submit" name="b43" value="b"/></td>
                 <td><input id="b44" type="submit" name="b44" value="b"/></td>
-            </tr>
+            </tr> -->
         </table>
     </form>
     {{ no }}
