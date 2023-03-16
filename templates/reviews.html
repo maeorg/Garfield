@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 
-{% block body %}
-        
+{% block body %}  
+<div style="background-color:rgba(150, 217, 241, 0.144);">
     <br>
     <h5 class="center text-center">Game overall rating: {{ rating_average[0] }}</h5>
 
@@ -26,10 +26,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.27.0/feather.min.js" integrity="sha256-xHkYry2yRjy99N8axsS5UL/xLHghksrFOGKm9HvFZIs=" crossorigin="anonymous"></script>
         <div class="container">
         <div class="row">
-            {% for review in reviews %} 
+            {% for review in reviews %}
             <div class="col-lg-6">
                 <div class="card m-b-30">
-                    <div class="card-body py-5">
+                    <div class="card-body py-4">
                         <div class="row">
                             <div class="col-lg-3 text-center">
                                 <img src="static/garfield-small.jpg" class="img-fluid mb-3" alt="user" />
@@ -55,6 +55,10 @@
                                         </tr>
                                     </tbody>
                                 </table>
+                                <form action="/remove" method="post" name="remove">
+                                    <input type="hidden" id="remove" name="remove" type="number" value="{{ review[0] }}">
+                                    <br><button type="submit" class="btn btn-primary-rgba">Remove review</button>
+                                </form>
                             </div> 
                         </div>
                     </div>
@@ -63,5 +67,5 @@
     {% endfor %}
         </div>
         </div> 
-    
+</div>
 {% endblock %}

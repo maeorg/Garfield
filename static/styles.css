@@ -46,8 +46,12 @@ div.center {
 
 .card {
     border: none;
-    border-radius: 30px;
+    border-radius: 10px;
     background-color: #ffffff;
 }
 
-
+.btn-primary-rgba {
+    background-color: rgba(80, 111, 228, 0.1);
+    border: none;
+    color: #506fe4;
+}

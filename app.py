@@ -33,7 +33,7 @@ def reviews():
     if request.method == "GET":
         connect = connect_database(database)
         with connect:
-            reviews = connect.execute("SELECT id, rating, name, review, time FROM reviews").fetchall()
+            reviews = connect.execute("SELECT id, rating, name, review, time FROM reviews ORDER BY time DESC").fetchall()
             rating_average = connect.execute("SELECT ROUND(AVG(rating), 1) FROM reviews").fetchone()
         return render_template("reviews.html", reviews=reviews, rating_average=rating_average)
     if request.method == "POST":
@@ -42,8 +42,20 @@ def reviews():
         review = request.form.get("review")
         together = (rating, name, review)
         db = connect_database(database)
-        db.execute("INSERT INTO reviews(rating, name, review) VALUES(?, ?, ?)", together)
-        db.commit()
+        if db.execute("INSERT INTO reviews(rating, name, review) VALUES(?, ?, ?)", together):
+            db.commit()
+            return render_template("/added.html")
+        return redirect("/reviews")
+
+
+@app.route("/remove", methods=["GET", "POST"])
+def remove():
+    if request.method == "POST":
+        id = request.form.get("remove")
+        print(id)
+        connect = connect_database(database)
+        connect.execute("DELETE FROM reviews WHERE id=?", [id])
+        connect.commit()
         return redirect("/reviews")
 
 
