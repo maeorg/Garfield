@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect
 import random
 import sqlite3
 
@@ -6,21 +6,36 @@ import sqlite3
 app = Flask(__name__)
 # export FLASK_DEBUG=1
 
+# Database file
+database = "database.db"
+
+
+# Connect to the database
+def connect_database(database):
+    connect = None
+    try:
+        connect = sqlite3.connect(database)
+    except Error as e:
+        print(e)
+    return connect
+
 
 @app.route("/", methods=["GET", "POST"])
 def index():
     if request.method == "GET":
-        db = sqlite3.connect("database.db")
-        reviews = db.execute("SELECT * FROM reviews")
-        print(reviews)
+        connect = connect_database(database)
+        with connect:
+            reviews = connect.execute("SELECT * FROM reviews")
+            reviews = reviews.fetchall()
         return render_template("index.html", reviews=reviews)
     if request.method == "POST":
-        #if not request.form.get("name"):
-
-        #name = request.form.get("name")
-        
-        #review = request.form.get("review")
-        return render_template("index.html")
+        name = request.form.get("name")
+        review = request.form.get("review")
+        together = (name, review)
+        db = connect_database(database)
+        db.execute("INSERT INTO reviews(name, review) VALUES(?, ?)", together)
+        db.commit()
+        return redirect("/")
 
 
 @app.route("/game", methods=["GET", "POST"])

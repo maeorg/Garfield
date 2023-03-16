@@ -6,9 +6,10 @@
     
     <h2>Reviews:</h2>
     {% for review in reviews %}
-        Name: {{reviews.name}}
-        Review: {{reviews.review}}
-        Time" {{reviews.timestamp}}
+        <br>    
+        Name: {{ review[1] }}
+        Review: {{ review[2] }}
+        Time: {{ review[3] }}
     {% endfor %}
 
     <h3>Add review:</h3>
