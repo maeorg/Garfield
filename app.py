@@ -23,12 +23,19 @@ def connect_database(database):
 @app.route("/", methods=["GET", "POST"])
 def index():
     if request.method == "GET":
+        return render_template("index.html")
+    if request.method == "POST":
+        return redirect("/")
+
+
+@app.route("/reviews", methods=["GET", "POST"])
+def reviews():
+    if request.method == "GET":
         connect = connect_database(database)
         with connect:
-            reviews = connect.execute("SELECT * FROM reviews").fetchall()
+            reviews = connect.execute("SELECT id, rating, name, review, time FROM reviews").fetchall()
             rating_average = connect.execute("SELECT ROUND(AVG(rating), 1) FROM reviews").fetchone()
-            print(rating_average)
-        return render_template("index.html", reviews=reviews, rating_average=rating_average)
+        return render_template("reviews.html", reviews=reviews, rating_average=rating_average)
     if request.method == "POST":
         rating = request.form.get("rating")
         name = request.form.get("name")
@@ -37,7 +44,7 @@ def index():
         db = connect_database(database)
         db.execute("INSERT INTO reviews(rating, name, review) VALUES(?, ?, ?)", together)
         db.commit()
-        return redirect("/")
+        return redirect("/reviews")
 
 
 @app.route("/game", methods=["GET", "POST"])

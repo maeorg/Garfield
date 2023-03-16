@@ -15,9 +15,39 @@ form {
     margin: auto;
     text-align: center;
     justify-content: center;
-} */
+} 
 
 div.center {
     text-align: center;
     justify-content: center;
+} */
+
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+  }
+
+  .review_input {
+    padding-bottom: 10px;
+  }
+
+  table, th, td {
+    padding-right: 5px;
+    text-align: left;
 }
+
+
+/* Review cards styling */
+.m-b-30 {
+    margin-bottom: 30px;
+}
+
+.card {
+    border: none;
+    border-radius: 30px;
+    background-color: #ffffff;
+}
+
+
