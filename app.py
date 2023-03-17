@@ -70,6 +70,7 @@ def game():
     global size
     global spot
     global field
+    global count
 
     if request.method == "GET":
         return render_template("game.html")
@@ -120,3 +121,20 @@ def game():
                 return render_template("game.html", field=field, size=size, no=no)
 
     return render_template("game.html")
+
+
+@app.route("/highscores", methods=["GET", "POST"])
+def highscores():
+    if request.method == "GET":
+        db = connect_database(database)
+        with db:
+            highscores = db.execute("SELECT * FROM highscores ORDER BY score ASC LIMIT 10").fetchall()
+        return render_template("highscores.html", highscores=highscores)
+    if request.method == "POST":
+        # Save highscore to database
+        db = connect_database(database)
+        name = request.form.get("name")
+        together = (name, count)
+        if db.execute("INSERT INTO highscores(name, score) VALUES(?, ?)", together):
+            db.commit()
+        return redirect("/highscores")

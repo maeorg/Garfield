@@ -42,14 +42,19 @@
         <br>
     {% endif %}
     {% if won %}
-  
         <h2 class="text-center">You found Garfield! You won!</h2>
         <h4 class="text-center">It took you {{ count }} tries.</h4>
         <br>
         <img class="center" src="/static/garfield.jpg" alt="Garfield_the_Cat" style="width:400px;height:200px;">
-    
+        <br>
+        <form  action="/highscores" method="post" class="center text-center" name="enter_score" onsubmit="return fieldCheck()">
+            Enter name here to save score into highscores table: 
+            Name: <input id="name" name="name" type="text" placeholder="Name" style="width: 50px;">
+            <button class="btn btn-primary" type="submit">Submit</button>
+        </form>
     <br>
     {% endif %}
-    <br>
+    <br>    
+
 </div>
 {% endblock %}

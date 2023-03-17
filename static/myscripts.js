@@ -23,3 +23,11 @@ function sizeCheck() {
         return false;
     }
 }
+
+function fieldCheck() {
+    var name = document.forms["enter_score"]["name"].value;
+    if (name == null || name == "" || !name.match(/^[A-Za-z0-9]*$/)) {
+        alert("Enter valid name");
+        return false;
+    }
+}
