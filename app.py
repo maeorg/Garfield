@@ -106,7 +106,14 @@ def game():
             if square == spot:
                 print("Found Garfield!")
                 won = True
-                return render_template("game.html", won=won)
+                count = 0
+
+                # Counts how many clicks it takes to find Garfield
+                for i in range(len(field)):
+                    if field[i]['clicked'] == True:
+                        count += 1
+
+                return render_template("game.html", won=won, count=count)
             if square != spot:
                 print("wrong")
                 no = "Wrong tile. Try again!"
