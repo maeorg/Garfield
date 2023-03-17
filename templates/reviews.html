@@ -13,15 +13,18 @@
 
     <br>
     <h6 class="center text-center">Add review:</h6>
-    <form action="/reviews" method="post" name="review" onsubmit="return ifEmpty()" class="center text-center">
+    <form action="/reviews" method="post" name="review" onsubmit="return ifEmpty()" class="text-center">
         <div class="review_input">
-            <input autofocus class="center" id="rating" name="rating" placeholder="Rating (1 to 5)" type="text">
+            <label for="rating">Rating (1 to 5): </label>
+            <input autofocus id="rating" name="rating" placeholder="Rating (1 to 5)" type="text" size="50">
         </div>
         <div class="review_input">
-            <input class="center" id="name" name="name" placeholder="Name" type="text">
+            <label for="name">Name: </label>
+            <input id="name" name="name" placeholder="Name" type="text" size="50">
         </div>
         <div class="review_input">
-            <input class="center" id="review" name="review" placeholder="Review" type="text" size="200">
+            <label for="review">Review: </label>
+            <input id="review" name="review" placeholder="Review" type="text" size="50">
         </div>
         <button class="btn btn-primary" type="submit">Add review</button>
     </form>

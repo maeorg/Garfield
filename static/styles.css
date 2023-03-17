@@ -1,3 +1,9 @@
+label {
+    display: inline-block;
+    width: 150px;
+    text-align: right;
+  }
+ 
  .squares {
     color: rgb(240, 237, 237);
     width: 50px;
@@ -23,11 +29,11 @@
     width: 50%;
   }
 
-  .review_input {
+.review_input {
     padding-bottom: 10px;
   }
 
-  table, th, td {
+table, th, td {
     padding-right: 5px;
     text-align: left;
 }
