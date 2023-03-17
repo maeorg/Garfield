@@ -66,37 +66,41 @@ def game():
     size = 4
     global spot
     global field
+    temp = {}
     field = []
     for i in range(size):
         for j in range(size ):
-            field.append(str(i+1) + str(j+1))
+            temp['id'] = int(str(i+1) + str(j+1))
+            temp['clicked'] = False
+            field.append(temp)
+            temp = {}
 
     if request.method == "GET":
         spotX = random.randint(1, size)
         spotY = random.randint(1, size)
         spot = str(spotX) + str(spotY)
-        print(spot)
+        print('spot', spot)
         return render_template("game.html", field=field, size=size)
 
     if request.method == "POST":
-        print(request.form.get("new_game"))
+        print('new_game', request.form.get("new_game"))
         if request.form.get("new_game") == "new_game":
             spotX = random.randint(1, size)
             spotY = random.randint(1, size)
             spot = str(spotX) + str(spotY)
-            print(spot)
+            print('spot', spot)
             return render_template("game.html", field=field, size=size)
 
         while not won:
-                square = request.form.get("square")
-                print(square)
-                if square == spot:
-                    print("Found Garfield!")
-                    won = True
-                    return render_template("won.html")
-                if square != spot:
-                    print("wrong")
-                    no = "Wrong tile. Try again!"
-                    return render_template("game.html", field=field, size=size, no=no)
+            square = request.form.get("square")
+            print('square', square)
+            if square == spot:
+                print("Found Garfield!")
+                won = True
+                return render_template("won.html")
+            if square != spot:
+                print("wrong")
+                no = "Wrong tile. Try again!"
+                return render_template("game.html", field=field, size=size, no=no)
 
     return render_template("game.html")

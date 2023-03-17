@@ -17,7 +17,7 @@
             {% set i = namespace(value=0) %}
             {% for square in field %}
                 {% if i.value < size %}
-                    <td><input class="squares" id="square" name="square" type="submit" value="{{ square }}"></td>                    
+                    <td><input class="squares" id="square" name="square" type="submit" value="{{ square['id'] }}"></td>                    
                     {% set i.value = i.value + 1 %}
                 {% elif i.value == size %}
                     <tr></tr>
