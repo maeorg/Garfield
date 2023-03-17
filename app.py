@@ -76,7 +76,6 @@ def game():
         return render_template("game.html")
 
     if request.method == "POST":
-        print('new_game', request.form.get("new_game"))
         if request.form.get("new_game") == "new_game":
             size = int(request.form.get("size"))
             spotX = random.randint(1, size)
@@ -115,9 +114,30 @@ def game():
                         count += 1
 
                 return render_template("game.html", won=won, count=count)
+
+            direction = ''
             if square != spot:
-                print("wrong")
-                no = "Wrong tile. Try again!"
+                if spot[0] == square[0]:
+                    if spot[1] < square[1]:
+                        direction = "to the left"
+                    if spot[1] > square[1]:
+                        direction = "to the right"
+                elif spot[1] == square[1]:
+                    if spot[0] < square[0]:
+                        direction = "up"
+                    if spot[0] > square[0]:
+                        direction = "down"
+                elif spot[1] != square[1]:
+                    if spot[1] < square[1]:
+                        direction = "to the left"
+                    if spot[1] > square[1]:
+                        direction = "to the right"
+                elif spot[1] != square[1]:
+                    if spot[0] < square[0]:
+                        direction = "up"
+                    if spot[0] > square[0]:
+                        direction = "down"
+                no = "Wrong tile. Try again! Garfield is more " + direction
                 return render_template("game.html", field=field, size=size, no=no)
 
     return render_template("game.html")
