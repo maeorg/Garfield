@@ -12,7 +12,7 @@
     </form>    
     <br>
 </div>
-<div class="center text-center">
+<div class="text-center">
     <form class="center" action="/game" method="post">
         <table class="center">
             {% set i = namespace(value=0) %}
@@ -42,12 +42,12 @@
         <br>
     {% endif %}
     {% if won %}
-    <div class="center text-center">
-        <h1>You won!</h1>
-        <h1>You found Garfield!</h1>
+    
+        <h1 class="text-center">You won!</h1>
+        <h1 class="text-center">You found Garfield!</h1>
         <br>
-        <img src="/static/garfield.jpg" alt="Garfield_the_Cat" style="width:400px;height:200px;">
-    </div>
+        <img class="center" src="/static/garfield.jpg" alt="Garfield_the_Cat" style="width:400px;height:200px;">
+    
     <br>
     {% endif %}
     <br>
