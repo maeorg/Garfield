@@ -29,7 +29,7 @@ def index():
 
 
 @app.route("/reviews", methods=["GET", "POST"])
-def reviews():
+def reviews():   
     if request.method == "GET":
         connect = connect_database(database)
         with connect:
@@ -44,7 +44,12 @@ def reviews():
         db = connect_database(database)
         if db.execute("INSERT INTO reviews(rating, name, review) VALUES(?, ?, ?)", together):
             db.commit()
-            return render_template("/added.html")
+            added = True
+            connect = connect_database(database)
+            with connect:
+                reviews = connect.execute("SELECT id, rating, name, review, time FROM reviews ORDER BY time DESC").fetchall()
+                rating_average = connect.execute("SELECT ROUND(AVG(rating), 1) FROM reviews").fetchone()
+            return render_template("reviews.html", reviews=reviews, rating_average=rating_average, added=added)
         return redirect("/reviews")
 
 
@@ -63,34 +68,20 @@ def game():
     global won
     won = False
     global size
-    size = 4
     global spot
     global field
-    # temp = {}
-    # field = []
-    # for i in range(size):
-    #     for j in range(size ):
-    #         temp['id'] = int(str(i+1) + str(j+1))
-    #         print('clicked false')
-    #         temp['clicked'] = False
-    #         field.append(temp)
-    #         temp = {}
 
     if request.method == "GET":
-        spotX = random.randint(1, size)
-        spotY = random.randint(1, size)
-        spot = str(spotX) + str(spotY)
-        print('spot', spot)
-        return render_template("game.html", field=field, size=size)
+        return render_template("game.html")
 
     if request.method == "POST":
         print('new_game', request.form.get("new_game"))
         if request.form.get("new_game") == "new_game":
+            size = int(request.form.get("size"))
             spotX = random.randint(1, size)
             spotY = random.randint(1, size)
             spot = str(spotX) + str(spotY)
             print('spot', spot)
-
             temp = {}
             field = []
             for i in range(size):
@@ -99,7 +90,6 @@ def game():
                     temp['clicked'] = False
                     field.append(temp)
                     temp = {}
-
             return render_template("game.html", field=field, size=size)
 
         while not won:
@@ -108,16 +98,15 @@ def game():
             print('clicked square:', square)
 
             # Search in 'field' where is the square that was clicked and change it's boolean 'clicked' to True
-            print(field)
             for i in range(len(field)):
                 if int(square) == int(field[i]['id']):
                     field[i]['clicked'] = True
-            print(field)
+                    
             # If the square that was clicked is the same where Garfield was hiding, the game is won
             if square == spot:
                 print("Found Garfield!")
                 won = True
-                return render_template("won.html")
+                return render_template("game.html", won=won)
             if square != spot:
                 print("wrong")
                 no = "Wrong tile. Try again!"

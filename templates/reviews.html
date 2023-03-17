@@ -5,6 +5,12 @@
     <br>
     <h5 class="center text-center">Game overall rating: {{ rating_average[0] }}</h5>
 
+    {% if added %}
+    <br><h4 class="text-center">Review added successfully!</h4><br>
+    <img class="center" src="/static/garfield_thumbs_up.jpg" alt="Garfield_the_Cat" style="width:200px;height:200px;">
+    <br>
+    {% endif %}
+
     <br>
     <h6 class="center text-center">Add review:</h6>
     <form action="/reviews" method="post" name="review" onsubmit="return ifEmpty()" class="center text-center">

@@ -5,8 +5,9 @@
     <br>
     <h4 class="center text-center">Feeling lucky? Try to find Garfield.</h4>
     <br>
-    <form  action="/game" method="post" class="center text-center" name="new_game">
+    <form  action="/game" method="post" class="center text-center" name="new_game" onsubmit="return sizeCheck()">
         <input type="hidden" id="new_game" name="new_game" type="text" value="new_game">
+        Field size: <input id="size" name="size" type="number" value="3" style="width: 50px;">
         <button class="btn btn-primary" type="submit">New game</button>
     </form>    
     <br>
@@ -34,9 +35,21 @@
             {% endfor %}
         </table>
     </form>
+    
+    {% if no %}
+        <br>
+        {{ no }}
+        <br>
+    {% endif %}
+    {% if won %}
+    <div class="center text-center">
+        <h1>You won!</h1>
+        <h1>You found Garfield!</h1>
+        <br>
+        <img src="/static/garfield.jpg" alt="Garfield_the_Cat" style="width:400px;height:200px;">
+    </div>
     <br>
-    {{ no }}
-    <br>
+    {% endif %}
     <br>
 </div>
 {% endblock %}
