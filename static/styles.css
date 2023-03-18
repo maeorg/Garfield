@@ -1,0 +1,57 @@
+label {
+    display: inline-block;
+    width: 150px;
+    text-align: right;
+  }
+ 
+ .squares {
+    color: rgb(240, 237, 237);
+    width: 50px;
+    height: 50px;
+} 
+
+.squares:hover {
+    color: rgba(233, 201, 56, 0.877);
+    background-color: rgba(233, 201, 56, 0.877);
+}
+
+.square_clicked {
+    color: rgb(250, 150, 150);
+    background-color: rgb(250, 150, 150);
+    width: 50px;
+    height: 50px;
+} 
+
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+  }
+
+.review_input {
+    padding-bottom: 10px;
+  }
+
+table, th, td {
+    padding-right: 5px;
+    text-align: left;
+}
+
+
+/* Review cards styling */
+.m-b-30 {
+    margin-bottom: 30px;
+}
+
+.card {
+    border: none;
+    border-radius: 10px;
+    background-color: #ffffff;
+}
+
+.btn-primary-rgba {
+    background-color: rgba(80, 111, 228, 0.1);
+    border: none;
+    color: #506fe4;
+}
